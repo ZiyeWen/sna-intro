@@ -1,0 +1,38 @@
+library(igraph)
+
+op <- par(mar=c(2,1,2,1), mfrow=c(1,3))
+
+# An Erdos-Renyi random network with Nv = 100 and Ne = 100
+# 100 nodes, 100 edges
+er <- erdos.renyi.game(n=100, 100, type='gnm')
+# visualization of random network
+plot(erdos.renyi.game(n=100, 100, type='gnm'),
+     vertex.color = 2,
+     title = "ER")
+title("Erdos-Renyi")
+
+# er, visualization of degree distribution
+plot(degree.distribution(er),type="b", xlab="Degree", ylab="Proportion")
+title("Erdos-Renyi")
+
+# A small world network with the parameters: dim = 1, size = 100, nei = 2, p = 0.025
+sw <- sample_smallworld(dim=1, size=100, nei=2, p=0.025)
+
+# visualization of small world network
+plot(sw, vertex.label=NA, layout=layout_with_kk)
+title("Small World")
+
+# sw, visualization of degree distribution
+plot(degree.distribution(sw),type="b", xlab="Degree", ylab="Proportion")
+title("Small World")
+
+# An undirected preferential attachment model network with Nv = 100 and m = 1 and otherwise standard parameters
+bg <- sample_pa(100, m=1, directed=FALSE)
+
+# visualization of undirected preferential attachment
+plot(bg, vertex.label=NA, vertex.size=3, xlab="n=100")
+title("Preferential Attachment")
+
+# bg,visualization of degree distribution
+plot(degree.distribution(bg), type="b", xlab="Degree", ylab="Proportion")
+title("Preferential Attachment")
