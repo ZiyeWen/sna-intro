@@ -1,0 +1,36 @@
+setwd()
+
+install.packages("igraph")
+library("igraph")
+g= read.csv(file="HW1.csv", header=TRUE)
+g1 <- data.frame(g)
+g2 <- graph_from_data_frame(g1, directed = FALSE, vertices = NULL)
+plot.igraph(g2,layout=layout_in_circle)
+
+
+# Question 2
+
+# (a) How many nodes are in the network?
+V(g2)
+
+16
+
+# (b) How many edges are in the network?
+E(g2)
+
+27 edges
+
+# (c) How many components are in the network?
+components(g2)
+
+1
+
+# (d) What is the diameter of the network?
+diameter(g2)
+
+[1] 6
+
+# (e) What is the clustering coefficient of the network?
+transitivity(g2)
+
+[1] 0.2692308
