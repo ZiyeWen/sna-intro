@@ -1,0 +1,78 @@
+# read in the list of igraph data objects
+setwd("")
+load("iGraph_Data.rdata")
+
+# turn the network in the 18th position in the list into an object named my_net
+my_net <- igraph_data_list[[18]]$network
+
+# create a separate object which has the node-level data associated with the network that is 18th in the list
+my_net_node_data <- igraph_data_list[[18]]$node_level_data
+#change the names of the vertices in the my_net network object to be the values in the my_net_node_data$COUNTRY column from the node-level data
+V(my_net)$name <- my_net_node_data$COUNTRY
+
+# degree #
+degree(my_net)
+mean(degree(my_net))
+median(degree(my_net))
+sd(degree(my_net))
+sort(degree(my_net), decreasing = T)
+
+# in-degree #
+degree(my_net, mode='in')
+mean(degree(my_net, mode='in'))
+median(degree(my_net, mode='in'))
+sd(degree(my_net, mode='in'))
+sort(degree(my_net, mode='in'), decreasing = T)
+
+# out-degree #
+degree(my_net, mode='out')
+mean(degree(my_net, mode='out'))
+median(degree(my_net, mode='out'))
+sd(degree(my_net, mode='out'))
+sort(degree(my_net, mode='out'), decreasing = T)
+
+# closeness centrality #
+c.my_net <- closeness(my_net)
+mean(c.my_net)
+median(c.my_net )
+sd(c.my_net )
+sort(c.my_net , decreasing = T)
+
+# betweenness centrality #
+b.my_net <- betweenness(my_net)
+mean(b.my_net)
+median(b.my_net)
+sd(b.my_net)
+sort(b.my_net, decreasing =T)
+
+# eigenvector centrality #
+e.my_net <- evcent(my_net)
+mean(e.my_net$vector)
+median(e.my_net$vector)
+sd(e.my_net$vector)
+sort(e.my_net$vector, decreasing = T)
+
+# correlation
+cor(degree(my_net), degree(my_net, mode='in'))
+cor(degree(my_net), degree(my_net, mode='out'))
+cor(degree(my_net), c.my_net)
+cor(degree(my_net), b.my_net)
+cor(degree(my_net), e.my_net$vector)
+
+cor(degree(my_net, mode='in'), degree(my_net, mode='out'))
+cor(degree(my_net, mode='in'), c.my_net)
+cor(degree(my_net, mode='in'), b.my_net)
+cor(degree(my_net, mode='in'), e.my_net$vector)
+
+cor(degree(my_net, mode='out'),c.my_net)
+cor(degree(my_net, mode='out'),b.my_net)
+cor(degree(my_net, mode='out'),e.my_net$vector)
+
+cor(c.my_net, b.my_net)
+cor(c.my_net, e.my_net$vector)
+
+cor(b.my_net, e.my_net$vector)
+
+
+cor.test(degree(my_net), e.my_net$vector)
+cor.test(degree(my_net, mode='out'),c.my_net)
